@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bangalore House Price Prediction</title>
+    <link rel="stylesheet" href="app.css">
+</head>
+<body>
+    <h1>Bangalore House Price Prediction</h1>
+    <form id="predictionForm">
+        <label for="location">Location:</label>
+        <select id="location" name="location">
+            {% for location in locations[3:] %}
+                <option value="{{ location }}">{{ location }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label for="sqft">Square Feet:</label>
+        <input type="text" id="sqft" name="sqft" required><br><br>
+
+        <label for="bath">Number of Bathrooms:</label>
+        <input type="text" id="bath" name="bath" required><br><br>
+
+        <label for="bhk">Number of Bedrooms:</label>
+        <input type="text" id="bhk" name="bhk" required><br><br>
+
+        <button type="submit">Predict Price</button>
+    </form>
+
+    <h2 id="result"></h2>
+
+    <script>
+        document.getElementById('predictionForm').onsubmit = async function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const response = await fetch('/predict', {
+                method: 'POST',
+                body: formData,
+            });
+            const result = await response.json();
+            document.getElementById('result').innerText = 'Predicted Price: ₹' + result.price.toFixed(2)+" Lakhs";
+        };
+    </script>
+</body>
+</html>
