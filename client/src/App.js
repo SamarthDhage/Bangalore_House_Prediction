@@ -13,7 +13,7 @@ function App() {
     useEffect(() => {
       const fetchLocations = async () => {
             try {
-                const response = await fetch('http://127.0.0.1:5000/locations',{method : 'GET', headers: {
+                const response = await fetch('https://bangalore-house-prediction-8fum.onrender.com/locations',{method : 'GET', headers: {
                   'Access-Control-Allow-Origin': '*',
                   'Access-Control-Allow-Credentials':'true'
                 }});
@@ -36,7 +36,7 @@ function App() {
         e.preventDefault(); // Prevent default form submission behavior
         console.log("clicked")
         try {
-            const response = await fetch('http://127.0.0.1:5000/predict', { // Send data to Flask for prediction
+            const response = await fetch('https://bangalore-house-prediction-8fum.onrender.com/predict', { // Send data to Flask for prediction
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
