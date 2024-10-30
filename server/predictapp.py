@@ -5,10 +5,11 @@ import json
 from flask_cors import CORS
 
 # Load the model and columns
-with open('server/banglore_home_prices_model.pickle', 'rb') as f:#server\banglore_home_prices_model.pickle
+model_path = "banglore_home_prices_model.pickle"
+with open(model_path, 'rb') as f:#server\banglore_home_prices_model.pickle
     lr_clf = pickle.load(f)
 
-with open('server/columns.json', 'r') as f:
+with open('columns.json', 'r') as f:
     data_columns = json.load(f)['data_columns']
     
 
@@ -26,9 +27,7 @@ def home():
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    print("check")
     data = request.json
-    print(data)
     location = data['location']
     location = location
     sqft = float(data['sqft'])
@@ -45,7 +44,7 @@ def predict():
         x[loc_index] = 1
 
     prediction = lr_clf.predict([x])[0]
-    print(prediction,"-----------------")
+    
     pre = jsonify(prediction)
     pre.headers.add("Access-Control-Allow-Origin", "*")
     pre.headers.add("Content-Type", "application/json")

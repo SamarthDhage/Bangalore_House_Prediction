@@ -86,7 +86,7 @@ function App() {
                     </label>
 
                     <label>
-                        Number of Bedrooms:
+                        BHK:
                         <input type="number" value={bhk} onChange={(e) => setBhk(e.target.value)} required />
                     </label>
 
